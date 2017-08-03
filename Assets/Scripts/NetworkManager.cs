@@ -21,6 +21,7 @@ namespace LEGProductions
         void Start()
         {
             Room = GameObject.FindGameObjectWithTag(Tags.RoomName)?.GetComponent<InputField>();
+            PhotonNetwork.autoJoinLobby = true;
         }
 
         private void OnGUI()
