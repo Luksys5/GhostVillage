@@ -11,10 +11,9 @@ namespace LEGProductions
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
         private Vector3 m_CamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
-        private bool m_Jump = false;                      // the world-relative desired move direction, calculated from the camForward and user input.
+        private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
 
         private PhotonView pw;
-
         private void Start()
         {
             pw = PhotonView.Get(this);
@@ -34,12 +33,11 @@ namespace LEGProductions
             m_Character = GetComponent<ThirdPersonCharacter>();
         }
 
-
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
             if (pw.isMine == false)
-               return;
+                return;
 
             // read inputs
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
@@ -65,6 +63,7 @@ namespace LEGProductions
 
             // pass all parameters to the character control script
             m_Character.Move(m_Move, crouch, m_Jump);
+            m_Jump = false;
         }
     }
 }
